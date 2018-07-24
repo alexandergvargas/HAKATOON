@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+
+            <ui:define name="pasa">
+                <a class="nav-link ripple active">
+                    <span>Bus</span>
+                </a>
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-layout simple full-width p-6">
+                    <ui:include src="createBus.xhtml"/>
+                    <h:form id="tabla">
+                        <p:dataTable value="#{BusC.listaBus}" var="Bus" id="PasaTbl"
+                                     rows = "12" paginator = "true" filteredValue="#{BusC.listarBus2}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters} "
+                                     rowsPerPageTemplate="6,12,16">
+
+
+                            <f:facet name="{Exporters}">
+                                <h:commandLink actionListener="#{BusC.reporteBus()}">
+                                    
+                                    <p:graphicImage url="../../Resources/imagen/optmizar-pdf-297x300.png" width="40" title="Reporte de Pasajeros"/>
+                                 
+                                </h:commandLink>
+                                </f:facet>
+                                <p:column style="width:40px">
+                                    <p:rowToggler />
+                                </p:column>
+                                <p:column headerText="Nombre" filterBy="#{Bus.colorbus}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{pasajero.colorbus}"/>
+                                </p:column>
+
+                                <p:column headerText="Apellido" filterBy="#{pasajero.apePasa}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{pasajero.apePasa}"/>
+                                </p:column>
+
+                                <p:column headerText="edad" filterBy="#{pasajero.edaPasa}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{pasajero.edaPasa}" title="#{pasajero.edaPasa}"/>
+                                </p:column>
+                                 <p:column headerText="dni">
+                                    <p:outputLabel value="#{Pasajero.dniPasa}"/>
+                                </p:column>
+                                <p:column headerText="Celular">
+                                    <p:outputLabel value="#{Pasajero.celPasa}"/>
+                                </p:column>
+                              <p:column headerText="Direccion">
+                                    <p:outputLabel value="#{Pasajero.direPasa}"/>
+                                </p:column>
+                                    
+                                <p:column headerText="Tipodoc">
+                                    <p:outputLabel value="#{Pasajero.tipodocPasa}"/>
+                                </p:column>
+                                <p:column headerText="Razon Social">
+                                    <p:outputLabel value="#{Pasajero.razonsoPasa}"/>
+                                </p:column>
+                            
+                               <p:column headerText="Destino">
+                                    <p:outputLabel value="#{Pasajero.destinoPasa}"/>
+                                </p:column>
+
+                                <p:column headerText="Asignar" exportable="false" >
+                                    <p:commandButton icon="ui-icon-pencil" value="Asignar" update=":Asig" oncomplete="PF('wigAsig').show()">
+                                        <f:setPropertyActionListener value="#{pasajero}" target="#{PasajerosC.selectPasa}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column headerText="Modificar" exportable="false" >
+                                    <p:commandButton value="Modificar" update=":dos" onclick="PF('imgalum').show()">
+                                        <f:setPropertyActionListener value="#{alumno}" target="#{alumnosC.selectAlum}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+
+                    <ui:include src="updateAumnos.xhtml"/>
+
+                    <h:form id="Asig">
+                        <p:dialog widgetVar="wigAsig" modal="true" id="Asignar" header="#{alumnosC.selectAlum.nomEstu} #{alumnosC.selectAlum.apeEstu}" >
+                            <p:selectOneMenu value="#{alumnosC.alumno.idAula}">
+                                <f:selectItems value="#{alumnosC.listaAula}" var="txtAula" itemValue="#{txtAula.idAula}" itemLabel="#{txtAula.nomAula}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton value="Aceptar" actionListener="#{alumnosC.asiganarAlum()}"
+                                             oncomplete="PF('wigAsig').hide()">
+                                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:dialog>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
