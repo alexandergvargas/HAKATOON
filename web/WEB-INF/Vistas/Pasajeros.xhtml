@@ -74,8 +74,8 @@
                                 </p:column>
 
                                 <p:column headerText="Modificar" exportable="false" >
-                                    <p:commandButton value="Modificar" update=":dos" onclick="PF('imgalum').show()">
-                                        <f:setPropertyActionListener value="#{alumno}" target="#{alumnosC.selectAlum}"/>
+                                    <p:commandButton value="Modificar" update=":dos" onclick="PF('imgaPasajeros').show()">
+                                        <f:setPropertyActionListener value="#{Pasajeros}" target="#{PasajerosC.selectPasajeros}"/>
                                     </p:commandButton>
                                 </p:column>
 
@@ -83,24 +83,7 @@
 
                     </h:form>
 
-                    <ui:include src="updateAumnos.xhtml"/>
-
-                    <h:form id="Asig">
-                        <p:dialog widgetVar="wigAsig" modal="true" id="Asignar" header="#{alumnosC.selectAlum.nomEstu} #{alumnosC.selectAlum.apeEstu}" >
-                            <p:selectOneMenu value="#{alumnosC.alumno.idAula}">
-                                <f:selectItems value="#{alumnosC.listaAula}" var="txtAula" itemValue="#{txtAula.idAula}" itemLabel="#{txtAula.nomAula}"/>
-                            </p:selectOneMenu>
-                            <p:commandButton value="Aceptar" actionListener="#{alumnosC.asiganarAlum()}"
-                                             oncomplete="PF('wigAsig').hide()">
-                                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
-                            </p:commandButton>
-
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
-                        </p:dialog>
-                    </h:form>
+                    
                 </div>
             </ui:define>
 

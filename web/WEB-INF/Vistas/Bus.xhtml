@@ -9,100 +9,92 @@
     <body>
 
 
-            <ui:define name="pasa">
-                <a class="nav-link ripple active">
-                    <span>Bus</span>
-                </a>
-            </ui:define>
+        <ui:define name="pasa">
+            <a class="nav-link ripple active">
+                <span>Bus</span>
+            </a>
+        </ui:define>
 
-            <ui:define name="content">
-                <div class="page-layout simple full-width p-6">
-                    <ui:include src="createBus.xhtml"/>
-                    <h:form id="tabla">
-                        <p:dataTable value="#{BusC.listaBus}" var="Bus" id="PasaTbl"
-                                     rows = "12" paginator = "true" filteredValue="#{BusC.listarBus2}"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters} "
-                                     rowsPerPageTemplate="6,12,16">
+        <ui:define name="content">
+            <div class="page-layout simple full-width p-6">
+                <ui:include src="createBus.xhtml"/>
+                <h:form id="tabla">
+                    <p:dataTable value="#{BusC.listaBus}" var="Bus" id="PasaTbl"
+                                 rows = "12" paginator = "true" filteredValue="#{BusC.listarBus2}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters} "
+                                 rowsPerPageTemplate="6,12,16">
 
 
-                            <f:facet name="{Exporters}">
-                                <h:commandLink actionListener="#{BusC.reporteBus()}">
-                                    
-                                    <p:graphicImage url="../../Resources/imagen/optmizar-pdf-297x300.png" width="40" title="Reporte de Pasajeros"/>
-                                 
-                                </h:commandLink>
-                                </f:facet>
-                                <p:column style="width:40px">
-                                    <p:rowToggler />
-                                </p:column>
-                                <p:column headerText="Nombre" filterBy="#{Bus.colorbus}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{pasajero.colorbus}"/>
-                                </p:column>
+                        <f:facet name="{Exporters}">
+                            <h:commandLink actionListener="#{BusC.reporteBus()}">
 
-                                <p:column headerText="Apellido" filterBy="#{pasajero.apePasa}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{pasajero.apePasa}"/>
-                                </p:column>
+                                <p:graphicImage url="../../Resources/imagen/optmizar-pdf-297x300.png" width="40" title="Reporte de Pasajeros"/>
 
-                                <p:column headerText="edad" filterBy="#{pasajero.edaPasa}" filterMatchMode="contains">
-                                    <p:outputLabel value="#{pasajero.edaPasa}" title="#{pasajero.edaPasa}"/>
-                                </p:column>
-                                 <p:column headerText="dni">
-                                    <p:outputLabel value="#{Pasajero.dniPasa}"/>
-                                </p:column>
-                                <p:column headerText="Celular">
-                                    <p:outputLabel value="#{Pasajero.celPasa}"/>
-                                </p:column>
-                              <p:column headerText="Direccion">
-                                    <p:outputLabel value="#{Pasajero.direPasa}"/>
-                                </p:column>
-                                    
-                                <p:column headerText="Tipodoc">
-                                    <p:outputLabel value="#{Pasajero.tipodocPasa}"/>
-                                </p:column>
-                                <p:column headerText="Razon Social">
-                                    <p:outputLabel value="#{Pasajero.razonsoPasa}"/>
-                                </p:column>
-                            
-                               <p:column headerText="Destino">
-                                    <p:outputLabel value="#{Pasajero.destinoPasa}"/>
-                                </p:column>
+                            </h:commandLink>
+                        </f:facet>
+                        <p:column style="width:40px">
+                            <p:rowToggler />
+                        </p:column>
+                        <p:column headerText="Color del Bus" filterBy="#{Bus.colorbus}" filterMatchMode="contains">
+                            <p:outputLabel value="#{bus.colorbus}"/>
+                        </p:column>
 
-                                <p:column headerText="Asignar" exportable="false" >
-                                    <p:commandButton icon="ui-icon-pencil" value="Asignar" update=":Asig" oncomplete="PF('wigAsig').show()">
-                                        <f:setPropertyActionListener value="#{pasajero}" target="#{PasajerosC.selectPasa}"/>
-                                    </p:commandButton>
-                                </p:column>
+                        <p:column headerText="Placa" filterBy="#{bus.placabus}" filterMatchMode="contains">
+                            <p:outputLabel value="#{bus.placabus}"/>
+                        </p:column>
 
-                                <p:column headerText="Modificar" exportable="false" >
-                                    <p:commandButton value="Modificar" update=":dos" onclick="PF('imgalum').show()">
-                                        <f:setPropertyActionListener value="#{alumno}" target="#{alumnosC.selectAlum}"/>
-                                    </p:commandButton>
-                                </p:column>
+                        <p:column headerText="cantida" filterBy="#{bus.cantidabus}" filterMatchMode="contains">
+                            <p:outputLabel value="#{bus.catidabus}" title="#{bus.cantidabus}"/>
+                        </p:column>
 
-                        </p:dataTable>
 
-                    </h:form>
+                        <p:column headerText="destinos">
+                            <p:outputLabel value="#{bus.destinosbus}"/>
+                        </p:column>
 
-                    <ui:include src="updateAumnos.xhtml"/>
+                        <p:column headerText="Hora de salida">
+                            <p:outputLabel value="#{bus.horasabus}"/>
+                        </p:column>
+                        <p:column headerText="hora de llegada">
+                            <p:outputLabel value="#{bus.horallebus}"/>
+                        </p:column>
 
-                    <h:form id="Asig">
-                        <p:dialog widgetVar="wigAsig" modal="true" id="Asignar" header="#{alumnosC.selectAlum.nomEstu} #{alumnosC.selectAlum.apeEstu}" >
-                            <p:selectOneMenu value="#{alumnosC.alumno.idAula}">
-                                <f:selectItems value="#{alumnosC.listaAula}" var="txtAula" itemValue="#{txtAula.idAula}" itemLabel="#{txtAula.nomAula}"/>
-                            </p:selectOneMenu>
-                            <p:commandButton value="Aceptar" actionListener="#{alumnosC.asiganarAlum()}"
-                                             oncomplete="PF('wigAsig').hide()">
-                                <p:confirm header="Confirmation" message="¿Quiere Modificar?" icon="ui-icon-alert" />
+                        <p:column headerText="fecha de viaje">
+                            <p:outputLabel value="#{bus.dechaviabus}"/>
+                        </p:column>
+                        
+                        <p:column headerText="numero de asientos">
+                            <p:outputLabel value="#{bus.numeasi}"/>
+                        </p:column>
+                        
+                        <p:column headerText="costo de viaje">
+                            <p:outputLabel value="#{bus.costvi}"/>
+                        </p:column>
+                         
+                        <p:column headerText="postergacion de viaje">
+                            <p:outputLabel value="#{bus.posterbus}"/>
+                        </p:column>
+                        <p:column headerText="Asignar" exportable="false" >
+                            <p:commandButton icon="ui-icon-pencil" value="Asignar" update=":Asig" oncomplete="PF('wigAsig').show()">
+                                <f:setPropertyActionListener value="#{bus}" target="#{BusC.selectBus}"/>
                             </p:commandButton>
+                        </p:column>
 
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                            </p:confirmDialog>
-                        </p:dialog>
-                    </h:form>
-                </div>
-            </ui:define>
+                        <p:column headerText="Modificar" exportable="false" >
+                            <p:commandButton value="Modificar" update=":dos" onclick="PF('imgalbus').show()">
+                                <f:setPropertyActionListener value="#{Bus}" target="#{BusC.selectBus}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+
+         
+                  
+          
+            </div>
+        </ui:define>
 
         </ui:composition>
 
