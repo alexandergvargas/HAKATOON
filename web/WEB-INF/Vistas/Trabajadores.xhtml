@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+
+            <ui:define name="pasa">
+                <a class="nav-link ripple active">
+                    <span>Trabajadores</span>
+                </a>
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="page-layout simple full-width p-6">
+                    <ui:include src="createTrabajadores.xhtml"/>
+                    <h:form id="tabla">
+                        <p:dataTable value="#{TrabajadoresC.crearTrabajador()}" var="Trabajadores" id="PasaTbl"
+                                     rows = "12" paginator = "true" filteredValue="#{TrabajadoresC.crearTrabajador()}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters} "
+                                     rowsPerPageTemplate="6,12,16">
+
+
+                            <f:facet name="{Exporters}">
+                                <h:commandLink actionListener="#{TrabajadoresC.reporteTrabajadores()}">
+                                    
+                                    <p:graphicImage url="../../Resources/imagen/optmizar-pdf-297x300.png" width="40" title="Reporte de Pasajeros"/>
+                                 
+                                </h:commandLink>
+                                </f:facet>
+                                <p:column style="width:40px">
+                                    <p:rowToggler />
+                                </p:column>
+                            <p:column headerText="Nombre" filterBy="#{Trabajadores.nomTraba}" filterMatchMode="contains">
+                                <p:outputLabel value="#{Trabajadores.nomTraba}"/>
+                                </p:column>
+
+                            <p:column headerText="Apellido" filterBy="#{Trabajadores.apeTraba}" filterMatchMode="contains">
+                                <p:outputLabel value="#{Trabajadores.apeTraba}"/>
+                                </p:column>
+
+                            <p:column headerText="Direccion" filterBy="#{Trabajadores.direTraba}" filterMatchMode="contains">
+                                <p:outputLabel value="#{Trabajadores.direTraba}"/>
+                                </p:column>
+                                 <p:column headerText="dni">
+                                     <p:outputLabel value="#{Trabajadores.dniTraba}"/>
+                                </p:column>
+                                <p:column headerText="Celular">
+                                    <p:outputLabel value="#{Trabajadores.celTraba}"/>
+                                </p:column>
+                              <p:column headerText="Area de trabajo">
+                                  <p:outputLabel value="#{Trabajadores.aretratraba}"/>
+                                </p:column>
+                                    
+                                <p:column headerText="edad de trabajador">
+                                    <p:outputLabel value="#{Trabajadores.edadTraba}"/>
+                                </p:column>
+                               
+                                <p:column headerText="Asignar" exportable="false" >
+                                    <p:commandButton icon="ui-icon-pencil" value="Asignar" update=":Asig" oncomplete="PF('wigAsig').show()">
+                                        <f:setPropertyActionListener value="#{Trabajadores}" target="#{TrabajadoresC.crearTrabajador()}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                                <p:column headerText="Modificar" exportable="false" >
+                                    <p:commandButton value="Modificar" update=":dos" onclick="PF('imgaTrabajadores').show()">
+                                        <f:setPropertyActionListener value="#{Trabajadores}" target="#{TrabajadoresC.crearTrabajador()}"/>
+                                    </p:commandButton>
+                                </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+
+                    
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
